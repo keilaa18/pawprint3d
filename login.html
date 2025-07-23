@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Iniciar Sesión - PawPrint-3D</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="hamburguesa-menu">
+    <div class="hamburguesa-icono" onclick="toggleHamburguesa()">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="hamburguesa-panel" id="hamburguesa-panel" style="display: none;">
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="registros.html">Registrarse</a></li>
+        <li><a href="productos.html">Productos</a></li>
+        <li><a href="ayuda.html">Ayuda</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ÍCONOS -->
+  <div class="iconos-superiores">
+  <a href="login.html" class="usuario-icono">👤</a>
+  <div class="carrito-icono" onclick="toggleCarrito()">🛒</div>
+</div>
+
+  
+  <!-- CARRITO -->
+  <div class="carrito-panel" id="carrito">
+    <div class="carrito-header">
+      <h3>Tu Carrito</h3>
+      <span class="cerrar-carrito" onclick="toggleCarrito()">✖</span>
+    </div>
+    <div class="carrito-items" id="carrito-items">
+      <p>Tu carrito está vacío</p>
+    </div>
+  </div>
+
+  <!-- LOGIN -->
+  <div class="login-container">
+    <h2>Iniciar Sesión</h2>
+    <form action="procesar_login.php" method="post">
+      <label for="usuario">Usuario</label>
+      <input type="text" id="usuario" name="usuario" placeholder="Usuario" required />
+      <label for="password">Contraseña</label>
+      <input type="password" id="password" name="password" placeholder="Contraseña" required />
+      <ul style="list-style: none; padding-left: 0;">
+        <li><a href="index.html" class="btn-1">Ingresar</a></li>
+      </ul>
+    </form>
+    <div class="register-link">
+      ¿No tienes cuenta? <a href="registros.html">Registrarse acá</a>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    function toggleCarrito() {
+      const panel = document.getElementById('carrito');
+      panel.classList.toggle('activo');
+    }
+
+    function toggleHamburguesa() {
+      const panel = document.getElementById('hamburguesa-panel');
+      panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+    }
+
+    document.querySelectorAll('#hamburguesa-panel a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('hamburguesa-panel').style.display = 'none';
+      });
+    });
+
+    // Carrito reutilizable
+    let carrito = [];
+
+    function guardarCarrito() {
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+    }
+
+    function cargarCarrito() {
+      const datos = localStorage.getItem('carrito');
+      if (datos) {
+        carrito = JSON.parse(datos);
+        mostrarCarrito();
+      }
+    }
+
+    function mostrarCarrito() {
+      const contenedor = document.getElementById('carrito-items');
+      if (!contenedor) return;
+      contenedor.innerHTML = "";
+
+      if (carrito.length === 0) {
+        contenedor.innerHTML = "<p>Tu carrito está vacío</p>";
+        return;
+      }
+
+      carrito.forEach(item => {
+        contenedor.innerHTML += `<p>${item.nombre} x${item.cantidad} - $${item.precio * item.cantidad}</p>`;
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      cargarCarrito();
+    });
+  </script>
+
+</body>
+<style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding-top: 120px;
+    }
+
+    .login-container {
+      max-width: 400px;
+      margin: 40px auto;
+      background-color: #f9f9f9;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .login-container h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #323337;
+    }
+
+    .login-container label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 8px;
+      margin-top: 20px;
+    }
+
+    .login-container input[type="text"],
+    .login-container input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+
+    .login-container .btn-1 {
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+      margin-top: 30px;
+      padding: 12px;
+      font-size: 16px;
+      background-color: #ce967b;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+      text-decoration: none;
+    }
+
+    .login-container .btn-1:hover {
+      background-color: #b97f62;
+    }
+
+    .login-container .register-link {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .login-container .register-link a {
+      color: #ce967b;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .login-container .register-link a:hover {
+      text-decoration: underline;
+    }
+
+.iconos-superiores {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  z-index: 1100;
+}
+
+.usuario-icono, .carrito-icono {
+  font-size: 22px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+  </style>
+</html>

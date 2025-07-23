@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Error de Login - Swift Bites</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+    :root {
+      --color-principal: #A47148;
+      --color-secundario: #E9D5CA;
+      --color-fondo: #F5F3F0;
+      --color-texto: #2C2C2C;
+      --color-hover: #D29571;
+      --color-blanco: #ffffff;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding-top: 120px;
+      background-color: var(--color-fondo);
+      color: var(--color-texto);
+    }
+
+    .error-container {
+      max-width: 500px;
+      margin: 60px auto;
+      background-color: var(--color-blanco);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .error-container h1 {
+      font-size: 24px;
+      color: var(--color-principal);
+      margin-bottom: 20px;
+    }
+
+    .error-container p {
+      font-size: 16px;
+      color: var(--color-texto);
+      margin-bottom: 30px;
+    }
+
+    .btn-volver {
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: var(--color-principal);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-volver:hover {
+      background-color: var(--color-hover);
+    }
+
+    .iconos-superiores {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      z-index: 1100;
+    }
+
+    .usuario-icono {
+      font-size: 22px;
+      text-decoration: none;
+      color: var(--color-principal);
+    }
+
+    .usuario-icono:hover {
+      color: var(--color-hover);
+    }
+  </style>
+</head>
+<body>
+  <div class="error-container">
+    <h1>¡Error!</h1>
+    <p>DNI o clave incorrectos. Por favor, revisá tus datos e intentá de nuevo.</p>
+    <a href="login.html" class="btn-volver">Volver al inicio de sesión</a>
+  </div>
+
+</body>
+</html>
+

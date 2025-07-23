@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Productos - PawPrint</title>
+  
+  <style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+  :root {
+    --color-fondo: #fff8f1;
+    --color-texto: #323337;
+    --color-principal: #ce967b;
+    --color-principal-hover: #b97a63;
+    --color-suave: #fff2e5;
+    --color-borde: #e6c2a6;
+    --color-fuerte: #a14e2a;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  body {
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    padding: 20px;
+  }
+
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+
+  h1, h2 {
+    color: var(--color-texto);
+    margin-bottom: 20px;
+  }
+
+  a {
+    color: var(--color-principal);
+    text-decoration: none;
+    transition: 0.3s;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .hamburguesa-menu {
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  .hamburguesa-icono {
+    width: 30px;
+    cursor: pointer;
+  }
+
+  .hamburguesa-icono span {
+    display: block;
+    height: 4px;
+    background: var(--color-principal);
+    margin: 5px 0;
+    border-radius: 2px;
+  }
+
+  .hamburguesa-panel {
+    display: none;
+    background-color: var(--color-suave);
+    padding: 15px;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+  }
+
+  .hamburguesa-panel.visible {
+    display: block;
+  }
+
+  .hamburguesa-panel ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .hamburguesa-panel li {
+    margin-bottom: 10px;
+  }
+
+  .hamburguesa-panel a {
+    color: var(--color-principal);
+    font-weight: 600;
+  }
+
+  .productos-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+  }
+
+  .producto-card {
+    background-color: var(--color-suave);
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 3px 8px rgba(206, 150, 123, 0.3);
+    transition: transform 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .producto-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .producto-card img {
+    width: 100%;
+    max-height: 150px;
+    object-fit: contain;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    background-color: white;
+    padding: 10px;
+  }
+
+  .producto-nombre {
+    font-weight: 600;
+    font-size: 18px;
+    color: var(--color-texto);
+    margin-bottom: 8px;
+  }
+
+  .producto-descripcion {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 12px;
+  }
+
+  .producto-precio {
+    font-weight: 700;
+    color: var(--color-principal);
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+
+  .boton-agregar {
+    background-color: var(--color-principal);
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s;
+    width: 100%;
+    max-width: 180px;
+  }
+
+  .boton-agregar:hover {
+    background-color: var(--color-principal-hover);
+  }
+
+  #carrito {
+    position: fixed;
+    top: 60px;
+    right: 20px;
+    width: 320px;
+    max-height: 400px;
+    background-color: var(--color-suave);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(206,150,123,0.4);
+    padding: 20px;
+    overflow-y: auto;
+    display: none;
+    z-index: 1100;
+  }
+
+  #carrito.activo {
+    display: block;
+  }
+
+  #carrito h3 {
+    margin-bottom: 15px;
+    color: var(--color-texto);
+  }
+
+  #carrito-items p {
+    margin-bottom: 8px;
+    color: var(--color-texto);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  #carrito-items button.borrar-item {
+    background: transparent;
+    border: none;
+    color: var(--color-principal-hover);
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 10px;
+    padding: 0;
+    transition: color 0.3s;
+  }
+
+  #carrito-items button.borrar-item:hover {
+    color: var(--color-fuerte);
+  }
+
+  #total {
+    font-weight: 700;
+    margin-top: 15px;
+    font-size: 18px;
+    color: var(--color-principal);
+  }
+
+  #btn-toggle-carrito {
+    position: fixed;
+    top: 15px;
+    right: 20px;
+    background-color: var(--color-principal);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(206,150,123,0.6);
+    z-index: 1200;
+  }
+
+  #btn-finalizar {
+    background-color: var(--color-principal-hover);
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-top: 15px;
+    width: 100%;
+    transition: background-color 0.3s;
+  }
+
+  #btn-finalizar:hover {
+    background-color: var(--color-fuerte);
+  }
+</style>
+
+</head>
+
+<body>
+  <div class="hamburguesa-menu">
+    <div class="hamburguesa-icono" id="btn-menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav class="hamburguesa-panel" id="menu-panel">
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="ayuda.html">Ayuda</a></li>
+        <li><a href="reclamos.html">Reclamos</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <section class="container">
+    <h1>Productos</h1>
+    <p>Descubrí nuestra gama de dispositivos de movilidad para mascotas, diseñados para mejorar su calidad de vida.</p>
+
+    <div class="productos-list">
+      <div class="producto-card" data-nombre="Prótesis Canina Modelo A" data-precio="12500">
+        <img src="images/c1.png" alt="Producto 1" />
+        <div class="producto-nombre">Prótesis Canina Modelo A</div>
+        <div class="producto-descripcion">Prótesis ligera y ajustable para patas delanteras.</div>
+        <div class="producto-precio">$12,500</div>
+        <button class="boton-agregar">Agregar al carrito</button>
+      </div>
+
+      <div class="producto-card" data-nombre="Carrito para Mascotas" data-precio="18000">
+        <img src="images/c2.png" alt="Producto 2" />
+        <div class="producto-nombre">Carrito para Mascotas</div>
+        <div class="producto-descripcion">Carrito cómodo para mascotas con movilidad limitada.</div>
+        <div class="producto-precio">$18,000</div>
+        <button class="boton-agregar">Agregar al carrito</button>
+      </div>
+
+      <div class="producto-card" data-nombre="Arnés Especializado" data-precio="6800">
+        <img src="images/c3.png" alt="Producto 3" />
+        <div class="producto-nombre">Arnés Especializado</div>
+        <div class="producto-descripcion">Arnés de soporte para prótesis caninas.</div>
+        <div class="producto-precio">$6,800</div>
+        <button class="boton-agregar">Agregar al carrito</button>
+      </div>
+    </div>
+  </section>
+
+  <button id="btn-toggle-carrito" title="Mostrar/Ocultar carrito">🛒</button>
+
+  <div id="carrito">
+    <h3>Tu carrito</h3>
+    <div id="carrito-items">
+      <p>Tu carrito está vacío</p>
+    </div>
+    <div id="total">Total: $0</div>
+    <button id="btn-finalizar">Finalizar compra</button>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const btnMenu = document.getElementById('btn-menu');
+      const menuPanel = document.getElementById('menu-panel');
+
+      btnMenu.addEventListener('click', () => {
+        menuPanel.classList.toggle('visible');
+      });
+
+      const btnToggleCarrito = document.getElementById('btn-toggle-carrito');
+      const carritoPanel = document.getElementById('carrito');
+      const carritoItems = document.getElementById('carrito-items');
+      const totalElement = document.getElementById('total');
+      const btnFinalizar = document.getElementById('btn-finalizar');
+
+      let carrito = [];
+
+      function mostrarCarrito() {
+        carritoItems.innerHTML = '';
+        if (carrito.length === 0) {
+          carritoItems.innerHTML = '<p>Tu carrito está vacío</p>';
+          totalElement.textContent = 'Total: $0';
+          return;
+        }
+
+        let total = 0;
+        carrito.forEach((item, index) => {
+          const subtotal = item.precio * item.cantidad;
+          total += subtotal;
+
+          const p = document.createElement('p');
+          p.textContent = `${item.nombre} x${item.cantidad} - $${subtotal.toLocaleString()}`;
+
+          const btnBorrar = document.createElement('button');
+          btnBorrar.textContent = '×';
+          btnBorrar.classList.add('borrar-item');
+          btnBorrar.title = 'Eliminar producto';
+          btnBorrar.addEventListener('click', () => {
+            carrito.splice(index, 1);
+            mostrarCarrito();
+          });
+
+          p.appendChild(btnBorrar);
+          carritoItems.appendChild(p);
+        });
+
+        totalElement.textContent = `Total: $${total.toLocaleString()}`;
+      }
+
+      btnToggleCarrito.addEventListener('click', () => {
+        carritoPanel.classList.toggle('activo');
+      });
+
+      document.querySelectorAll('.boton-agregar').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const card = e.target.closest('.producto-card');
+          const nombre = card.getAttribute('data-nombre');
+          const precio = parseFloat(card.getAttribute('data-precio'));
+
+          const existente = carrito.find(item => item.nombre === nombre);
+          if (existente) {
+            existente.cantidad += 1;
+          } else {
+            carrito.push({ nombre, precio, cantidad: 1 });
+          }
+
+          mostrarCarrito();
+          carritoPanel.classList.add('activo');
+        });
+      });
+
+      btnFinalizar.addEventListener('click', () => {
+        if (carrito.length === 0) {
+          alert('El carrito está vacío');
+          return;
+        }
+        alert('¡Gracias por tu compra!');
+        carrito = [];
+        mostrarCarrito();
+        carritoPanel.classList.remove('activo');
+      });
+
+      mostrarCarrito();
+    });
+  </script>
+</body>
+</html>

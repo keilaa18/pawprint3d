@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Datos personales</title>
+  <style>
+  :root {
+    --color-fondo: #fff8f0;
+    --color-texto: #323337;
+    --color-input: #fffdfc;
+    --color-borde: #d9cfc8;
+    --color-hover: #fef1e7;
+    --color-principal: #ce967b;
+    --color-principal-hover: #b97a63;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 750px;
+    background-color: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(201, 142, 107, 0.2);
+  }
+
+  h1 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  a {
+    color: var(--color-principal);
+    text-decoration: underline;
+  }
+
+  form {
+    width: 100%;
+  }
+
+  .form-group {
+    margin-bottom: 16px;
+  }
+
+  label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: var(--color-texto);
+  }
+
+  input,
+  select {
+    width: 100%;
+    padding: 10px 12px;
+    background-color: var(--color-input);
+    color: var(--color-texto);
+    border: 1px solid var(--color-borde);
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border 0.2s ease, background-color 0.2s ease;
+  }
+
+  input:focus,
+  select:focus {
+    border-color: var(--color-principal);
+    background-color: var(--color-hover);
+    outline: none;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .btn-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+  }
+
+  .btn {
+    background-color: var(--color-principal);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn:hover {
+    background-color: var(--color-principal-hover);
+  }
+
+  @media (max-width: 768px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+
+    .btn-row {
+      flex-direction: column;
+      gap: 10px;
+      align-items: stretch;
+    }
+  }
+
+  /* Menú hamburguesa */
+  .hamburguesa-menu {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1100;
+  }
+
+  .hamburguesa-icono {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .hamburguesa-icono span {
+    width: 25px;
+    height: 3px;
+    background-color: var(--color-principal);
+    border-radius: 2px;
+  }
+
+  .hamburguesa-panel {
+    background-color: var(--color-fondo);
+    border: 1px solid var(--color-borde);
+    padding: 10px 20px;
+    border-radius: 12px;
+    margin-top: 10px;
+    display: none;
+  }
+
+  .hamburguesa-panel ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .hamburguesa-panel li {
+    margin: 10px 0;
+  }
+
+  .hamburguesa-panel a {
+    color: var(--color-texto);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .carrito-icono {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    font-size: 22px;
+    cursor: pointer;
+    z-index: 1100;
+  }
+
+  .usuario-icono {
+    position: fixed;
+    top: 20px;
+    right: 60px;
+    font-size: 22px;
+    text-decoration: none;
+    color: var(--color-principal);
+    z-index: 1100;
+  }
+
+  .carrito-panel {
+    position: fixed;
+    top: 60px;
+    right: 20px;
+    width: 300px;
+    background-color: var(--color-input);
+    border: 1px solid var(--color-borde);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    z-index: 1100;
+    padding: 20px;
+    display: none;
+  }
+
+  .carrito-panel.activo {
+    display: block;
+  }
+
+  .carrito-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .cerrar-carrito {
+    cursor: pointer;
+    font-weight: bold;
+  }
+</style>
+
+</head>
+<body>
+
+  <!-- Menú hamburguesa -->
+  <div class="hamburguesa-menu">
+    <div class="hamburguesa-icono" onclick="toggleHamburguesa()">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="hamburguesa-panel" id="hamburguesa-panel">
+      <ul>
+        <li><a href="productos.html">Productos</a></li>
+        <li><a href="ayuda.html">Ayuda</a></li>
+        <li><a href="reclamos.html">Reclamos</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Íconos -->
+  <a href="login.html" class="usuario-icono">👤</a>
+
+  <!-- Carrito -->
+  <div class="carrito-panel" id="carrito">
+    <div class="carrito-header">
+      <h3>Tu Carrito</h3>
+      <span class="cerrar-carrito" onclick="toggleCarrito()">✖</span>
+    </div>
+    <div class="carrito-items" id="carrito-items">
+      <p>Tu carrito está vacío</p>
+    </div>
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="container">
+    <h1>Datos personales</h1>
+    <p>Administra tu nombre e información de contacto. Estos datos personales son privados y no se mostrarán a otros usuarios. Consulta la <a href="#">política de privacidad</a></p>
+
+    <form id="formulario">
+      <div class="grid">
+        <div class="form-group">
+          <label for="nombre">Nombre</label>
+          <input type="text" id="nombre" placeholder="Juan" disabled />
+        </div>
+        <div class="form-group">
+          <label for="apellido">Apellidos</label>
+          <input type="text" id="apellido" placeholder="Pérez" disabled />
+        </div>
+      </div>
+
+      <h2 style="margin-top: 30px; font-size: 18px;">Dirección</h2>
+
+      <div class="form-group">
+        <label for="direccion1">Línea de dirección 1</label>
+        <input type="text" id="direccion1" disabled />
+      </div>
+
+      <div class="form-group">
+        <label for="direccion2">Línea de dirección 2</label>
+        <input type="text" id="direccion2" disabled />
+      </div>
+
+      <div class="grid">
+        <div class="form-group">
+          <label for="ciudad">Ciudad</label>
+          <input type="text" id="ciudad" placeholder="Ciudad" disabled />
+        </div>
+        <div class="form-group">
+          <label for="region">Región</label>
+          <input type="text" id="region" placeholder="Provincia" disabled />
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="form-group">
+          <label for="cp">Código postal</label>
+          <input type="text" id="cp" placeholder="1234" disabled />
+        </div>
+        <div class="form-group">
+          <label for="pais">País/Región</label>
+          <select id="pais" disabled>
+            <option>ARGENTINA</option>
+            <option>URUGUAY</option>
+            <option>CHILE</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn" type="button" onclick="editarCampos()">Editar</button>
+        <button class="btn" type="submit">Guardar</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    function toggleHamburguesa() {
+      const panel = document.getElementById('hamburguesa-panel');
+      panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function toggleCarrito() {
+      document.getElementById('carrito').classList.toggle('activo');
+    }
+
+    function editarCampos() {
+      const campos = document.querySelectorAll("#formulario input, #formulario select");
+      campos.forEach(campo => {
+        campo.disabled = !campo.disabled;
+      });
+    }
+
+    // Carrito reutilizable
+    document.addEventListener("DOMContentLoaded", () => {
+      let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+      const contenedor = document.getElementById("carrito-items");
+
+      if (carrito.length === 0) {
+        contenedor.innerHTML = "<p>Tu carrito está vacío</p>";
+      } else {
+        contenedor.innerHTML = "";
+        carrito.forEach(item => {
+          contenedor.innerHTML += `<p>${item.nombre} x${item.cantidad} - $${item.precio * item.cantidad}</p>`;
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>

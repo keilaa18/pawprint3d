@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Centro de Ayuda - PawPrint</title>
+  <link rel="stylesheet" href="style.css" />
+
+ <style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+  :root {
+    --color-fondo: #fff8f1;
+    --color-texto: #323337;
+    --color-principal: #ce967b;
+    --color-principal-hover: #b97a63;
+    --color-suave: #fff2e5;
+    --color-borde: #e6c2a6;
+    --color-fuerte: #a14e2a;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  body {
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    padding: 20px;
+  }
+
+  .container {
+    max-width: 1000px;
+    margin: 80px auto 0 auto;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+
+  h1, h2, h3 {
+    color: var(--color-texto);
+    margin-bottom: 15px;
+  }
+
+  p {
+    margin-bottom: 15px;
+    line-height: 1.6;
+  }
+
+  a {
+    color: var(--color-principal);
+    text-decoration: none;
+    transition: 0.3s;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  /* Menú Ayuda */
+  .ayuda-menu ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 25px;
+    padding: 0;
+  }
+
+  .ayuda-menu li {
+    list-style: none;
+  }
+
+  .ayuda-menu a {
+    background-color: var(--color-principal);
+    padding: 10px 15px;
+    border-radius: 10px;
+    color: white;
+  }
+
+  .ayuda-menu a:hover {
+    background-color: var(--color-principal-hover);
+  }
+
+  .ayuda-item {
+    margin-bottom: 40px;
+    background-color: var(--color-suave);
+    padding: 20px;
+    border-radius: 12px;
+    border-left: 5px solid var(--color-principal);
+  }
+
+  .video-embed {
+    margin-bottom: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  /* FAQ */
+  .faq-box {
+    margin-bottom: 15px;
+  }
+
+  .faq-question {
+    width: 100%;
+    text-align: left;
+    background-color: var(--color-principal);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .faq-question:hover {
+    background-color: var(--color-principal-hover);
+  }
+
+  .faq-answer {
+    display: none;
+    padding: 10px 15px;
+    background-color: #fffaf3;
+    border-left: 3px solid var(--color-principal);
+    margin-top: 5px;
+    border-radius: 6px;
+    color: var(--color-texto);
+  }
+
+  .faq-box.active .faq-answer {
+    display: block;
+  }
+
+  /* Hamburguesa */
+  .hamburguesa-menu {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+  }
+
+  .hamburguesa-icono {
+    width: 35px;
+    height: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+  }
+
+  .hamburguesa-icono span {
+    display: block;
+    height: 4px;
+    background: var(--color-principal);
+    border-radius: 2px;
+  }
+
+  .hamburguesa-panel {
+    display: none;
+    background-color: var(--color-suave);
+    padding: 15px;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+
+  .hamburguesa-panel.visible {
+    display: block;
+  }
+
+  .hamburguesa-panel ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .hamburguesa-panel li {
+    margin-bottom: 10px;
+  }
+
+  .hamburguesa-panel a {
+    color: var(--color-principal);
+    font-weight: 600;
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #ffe8d0;
+    color: #555;
+    border-radius: 10px;
+  }
+</style>
+</head>
+<body>
+
+  <!-- Menú hamburguesa -->
+  <div class="hamburguesa-menu">
+    <div class="hamburguesa-icono" id="btn-menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav class="hamburguesa-panel" id="menu-panel">
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="productos.html">Productos</a></li>
+        <li><a href="ayuda.html">Ayuda</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- Contenido -->
+  <section class="ayuda-section container">
+    <h1>Centro de Ayuda</h1>
+    <h3>Aquí es donde albergamos una gran cantidad de información sobre dispositivos de movilidad, nuestros videos, redes sociales y más.</h3>
+
+    <nav class="ayuda-menu">
+      <ul>
+        <li><a href="#videos">Videos</a></li>
+        <li><a href="#articulos">Links & Articles</a></li>
+        <li><a href="#redes">Social Media</a></li>
+        <li><a href="#testimonios">Testimonials</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#sucursales">Sucursales</a></li>
+      </ul>
+    </nav>
+
+    <!-- Sección de Videos -->
+    <div id="videos" class="ayuda-item">
+      <h2>Videos</h2>
+      <p>Acá tenés varios videos explicativos:</p>
+
+      <div class="video-embed">
+        <iframe width="100%" height="315"
+          src="https://www.youtube.com/embed/sqSCvcJ28gQ?start=31"
+          title="Video de ejemplo" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+      </div>
+
+      <div class="video-embed">
+        <iframe width="100%" height="315"
+          src="https://www.youtube.com/embed/WHX71My0AKI"
+          title="Video YouTube" frameborder="0"
+          allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <!-- Artículos -->
+    <div id="articulos" class="ayuda-item">
+      <h2>Links & Articles</h2>
+      <ul>
+        <li><a href="https://www.novecan.com/blog/ciencia-detras-de-las-protesis-caninas/">La ciencia detrás de las prótesis caninas</a></li>
+        <li><a href="https://www.inesalud.com/actualidad-sanitaria/investigacion/protesis-para-perros-todo-lo-que-tienes-que-saber">Prótesis para perros: todo lo que tienes que saber</a></li>
+        <li><a href="https://2001online.com/zona3d/beneficios-de-las-protesis-caninas">Beneficios de las prótesis caninas</a></li>
+      </ul>
+    </div>
+
+    <!-- Redes sociales -->
+    <div id="redes" class="ayuda-item">
+      <h2>Social Media</h2>
+      <p>Seguinos en nuestras redes para ver casos reales y tips útiles:</p>
+      <ul>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">TikTok</a></li>
+        <li><a href="#">Facebook</a></li>
+      </ul>
+    </div>
+
+    <!-- FAQ -->
+    <div id="faq" class="ayuda-item">
+      <h2>Preguntas Frecuentes</h2>
+      <p>Estas son las preguntas más comunes:</p>
+
+      <div class="faq-box">
+        <button class="faq-question">¿Por qué existe un proceso de candidatura?</button>
+        <div class="faq-answer">
+          <p>Cada mascota es única, y este proceso nos permite garantizar la mejor solución según su necesidad.</p>
+        </div>
+      </div>
+      <div class="faq-box">
+        <button class="faq-question">¿Ofrecen prótesis traseras?</button>
+        <div class="faq-answer">
+          <p>No actualmente. Por la biomecánica del cuerpo, son más difíciles de adaptar correctamente.</p>
+        </div>
+      </div>
+      <div class="faq-box">
+        <button class="faq-question">¿Hacen prótesis para gatos?</button>
+        <div class="faq-answer">
+          <p>Por ahora no. Los gatos se adaptan muy bien por sí mismos, y los dispositivos pueden ser incómodos para ellos.</p>
+        </div>
+      </div>
+      <div class="faq-box">
+        <button class="faq-question">¿Duele usar el dispositivo?</button>
+        <div class="faq-answer">
+          <p>No. Se hacen a medida y acolchados. Si se detecta molestia, lo ajustamos o reacondicionamos.</p>
+        </div>
+      </div>
+      <div class="faq-box">
+        <button class="faq-question">¿Mi perro lo usará?</button>
+        <div class="faq-answer">
+          <p>Depende de la dedicación y práctica. Cada animal tiene un proceso de adaptación diferente.</p>
+        </div>
+      </div>
+      <div class="faq-box">
+        <button class="faq-question">¿Se puede limpiar?</button>
+        <div class="faq-answer">
+          <p>Sí. Agua tibia y detergente suave. Las correas se pueden sacar y lavar también.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUCURSALES -->
+    <div id="sucursales" class="ayuda-item">
+      <h2>Sucursales</h2>
+      <ul>
+        <li>Veterinaria Centro</li>
+        <li>Veterinaria Mascotitas</li>
+        <li>VetCan</li>
+        <li>Clínica Animal Norte</li>
+        <li>Veterinaria Palermo Pets</li>
+        <li>VetLife San Isidro</li>
+        <li>Centro Vet Quilmes</li>
+        <li>Veterinaria Lanús Este</li>
+        <li>VetLomas</li>
+        <li>Veterinaria Central Córdoba</li>
+        <li>Clínica Animal Nueva Córdoba</li>
+        <li>VetRosario Centro</li>
+        <li>Veterinaria Sur Rosario</li>
+        <li>Veterinaria Andes</li>
+        <li>Mendoza Pets</li>
+        <li>Clínica Animal Salta</li>
+        <li>Vet Tucumán Centro</li>
+        <li>Veterinaria Costa Atlántica</li>
+      </ul>
+    </div>
+
+  </section>
+
+  <footer id="footer-placeholder"></footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const btnMenu = document.getElementById('btn-menu');
+      const menuPanel = document.getElementById('menu-panel');
+      btnMenu.addEventListener('click', () => {
+        menuPanel.classList.toggle('visible');
+      });
+
+      document.querySelectorAll('.faq-question').forEach(btn => {
+        btn.addEventListener('click', () => {
+          btn.parentElement.classList.toggle('active');
+        });
+      });
+
+      // Footer dinámico (opcional)
+      fetch('footer.html')
+        .then(res => res.text())
+        .then(data => {
+          document.getElementById('footer-placeholder').innerHTML = data;
+        });
+    });
+  </script>
+</body>
+</html>

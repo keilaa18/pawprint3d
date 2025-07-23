@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Reclamos - PawPrint</title>
+  <style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+  :root {
+    --color-fondo: #fff8f1;
+    --color-texto: #323337;
+    --color-principal: #ce967b;
+    --color-principal-hover: #b97a63;
+    --color-claro: #fff2e5;
+    --color-borde: #e6c2a6;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  body {
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    padding: 20px;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 80px auto 0 auto;
+    background: white;
+    padding: 30px 40px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+
+  h1 {
+    margin-bottom: 20px;
+  }
+
+  a {
+    color: var(--color-principal);
+    text-decoration: none;
+    transition: 0.3s;
+  }
+
+  a:hover {
+    color: var(--color-principal-hover);
+    text-decoration: underline;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  textarea {
+    padding: 12px 15px;
+    border: 2px solid var(--color-borde);
+    border-radius: 12px;
+    font-size: 16px;
+    resize: vertical;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+  }
+
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  textarea:focus {
+    outline: none;
+    border-color: var(--color-principal);
+    background-color: var(--color-claro);
+  }
+
+  button[type="submit"] {
+    background-color: var(--color-principal);
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+    border: none;
+    border-radius: 15px;
+    padding: 14px 20px;
+    max-width: 200px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  button[type="submit"]:hover {
+    background-color: var(--color-principal-hover);
+  }
+
+  .usuario-icono {
+    position: fixed;
+    top: 20px;
+    right: 60px;
+    font-size: 22px;
+    z-index: 1100;
+    text-decoration: none;
+    color: var(--color-principal);
+  }
+
+  .carrito-icono {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1100;
+  }
+
+  .carrito-panel {
+    position: fixed;
+    top: 60px;
+    right: 20px;
+    width: 300px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    display: none;
+    flex-direction: column;
+    z-index: 1500;
+  }
+
+  .carrito-panel.activo {
+    display: flex;
+  }
+
+  .carrito-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .carrito-items {
+    padding: 15px;
+  }
+
+  .cerrar-carrito {
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .hamburguesa-menu {
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  .hamburguesa-icono {
+    width: 30px;
+    cursor: pointer;
+    z-index: 2000;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+  }
+
+  .hamburguesa-icono span {
+    display: block;
+    height: 4px;
+    background: var(--color-principal);
+    margin: 5px 0;
+    border-radius: 2px;
+    transition: 0.3s;
+  }
+
+  .hamburguesa-panel {
+    display: none;
+    background-color: var(--color-claro);
+    padding: 15px;
+    position: fixed;
+    top: 60px;
+    left: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    z-index: 1900;
+  }
+
+  .hamburguesa-panel.visible {
+    display: block;
+  }
+
+  .hamburguesa-panel ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .hamburguesa-panel li {
+    margin-bottom: 10px;
+  }
+
+  .hamburguesa-panel a {
+    color: var(--color-principal);
+    font-weight: 600;
+    font-size: 18px;
+    text-decoration: none;
+  }
+
+  .hamburguesa-panel a:hover {
+    color: var(--color-principal-hover);
+    text-decoration: underline;
+  }
+
+  @media (max-width: 600px) {
+    .container {
+      margin-top: 100px;
+      padding: 20px;
+    }
+  }
+</style>
+
+</head>
+<body>
+
+  <!-- Íconos -->
+  <a href="perfil.html" class="usuario-icono">👤</a>
+ 
+
+  <!-- Carrito -->
+  <div class="carrito-panel" id="carrito">
+    <div class="carrito-header">
+      <h3>Tu Carrito</h3>
+      <span class="cerrar-carrito" onclick="toggleCarrito()">✖</span>
+    </div>
+    <div class="carrito-items" id="carrito-items">
+      <p>Tu carrito está vacío</p>
+    </div>
+  </div>
+
+  <!-- Menú hamburguesa -->
+  <div class="hamburguesa-menu">
+    <div class="hamburguesa-icono" id="btn-menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav class="hamburguesa-panel" id="menu-panel">
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="productos.html">Productos</a></li>
+        <li><a href="ayuda.html">Ayuda</a></li>
+        <li><a href="reclamos.html">Reclamos</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="container">
+    <h1>Reclamos</h1>
+    <p>Si tenés algún inconveniente o reclamo, completá el siguiente formulario y te responderemos a la brevedad.</p>
+
+    <form id="form-reclamos" action="#" method="post">
+      <label for="nombre">Nombre completo</label>
+      <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre">
+
+      <label for="email">Correo electrónico</label>
+      <input type="email" id="email" name="email" required placeholder="tu@correo.com">
+
+      <label for="telefono">Teléfono (opcional)</label>
+      <input type="text" id="telefono" name="telefono" placeholder="Ej: 1234-567890">
+
+      <label for="mensaje">Detalle del reclamo</label>
+      <textarea id="mensaje" name="mensaje" rows="6" required placeholder="Describí tu reclamo..."></textarea>
+
+      <button type="submit">Enviar reclamo</button>
+    </form>
+  </div>
+
+  <!-- Script externo -->
+  <script src="menu-carrito.js"></script>
+  <script>
+    document.getElementById('form-reclamos').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Gracias por enviar tu reclamo. Nos contactaremos pronto.');
+      this.reset();
+    });
+  </script>
+</body>
+</html>

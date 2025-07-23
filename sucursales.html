@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Agregar Sucursales</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+    :root {
+      --color-principal: #A47148;
+      --color-secundario: #E9D5CA;
+      --color-fondo: #F5F3F0;
+      --color-texto: #2C2C2C;
+      --color-hover: #D29571;
+      --color-blanco: #ffffff;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--color-fondo);
+      margin: 0;
+      padding-top: 120px;
+      color: var(--color-texto);
+    }
+
+    .registro-container {
+      max-width: 400px;
+      margin: 40px auto;
+      background-color: var(--color-blanco);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .registro-container h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: var(--color-principal);
+    }
+
+    .registro-container label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 8px;
+      margin-top: 20px;
+      color: var(--color-texto);
+    }
+
+    .registro-container input[type="text"],
+    .registro-container input[type="number"] {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--color-fondo);
+      color: var(--color-texto);
+      transition: border-color 0.3s ease, background-color 0.3s ease;
+    }
+
+    .registro-container input:focus {
+      outline: none;
+      border-color: var(--color-principal);
+      background-color: var(--color-secundario);
+    }
+
+    .registro-container .btn-1 {
+      display: block;
+      width: 100%;
+      margin-top: 30px;
+      padding: 12px;
+      font-size: 16px;
+      background-color: var(--color-principal);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .registro-container .btn-1:hover {
+      background-color: var(--color-hover);
+    }
+
+    .iconos-superiores {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      z-index: 1100;
+    }
+
+    .usuario-icono, .carrito-icono {
+      font-size: 22px;
+      cursor: pointer;
+      text-decoration: none;
+      color: var(--color-principal);
+    }
+
+    .usuario-icono:hover, .carrito-icono:hover {
+      color: var(--color-hover);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="registro-container">
+    <form action="sucursal.php" method="post">
+      <h2>Agregar Sucursales</h2>
+
+      <label for="direccion">Dirección:</label>
+      <input type="text" name="direccion" id="direccion" required>
+
+      <label for="contacto">Contacto:</label>
+      <input type="number" name="contacto" id="contacto" required>
+
+      <label for="encargado">Encargado:</label>
+      <input type="text" name="encargado" id="encargado" required>
+
+      <button type="submit" class="btn-1">Enviar</button>
+    </form>
+  </div>
+
+</body>
+</html>
+
+
+</body>
+</html>
+
+

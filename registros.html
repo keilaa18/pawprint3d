@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Registro de Usuario - PawPrint-3D</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding-top: 120px;
+    }
+    .registro-container {
+      max-width: 400px;
+      margin: 40px auto;
+      background-color: #f9f9f9;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .registro-container h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #323337;
+    }
+    .registro-container label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 8px;
+      margin-top: 20px;
+    }
+    .registro-container input[type="text"],
+    .registro-container input[type="email"],
+    .registro-container input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+    .registro-container .btn-1 {
+      width: 100%;
+      margin-top: 30px;
+      padding: 12px;
+      font-size: 16px;
+      background-color: #ce967b;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+    .registro-container .btn-1:hover {
+      background-color: #b97f62;
+    }
+    #mensaje {
+      text-align: center;
+      margin-top: 20px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="registro-container">
+    <h2>Crear cuenta</h2>
+    <form id="formRegistro" novalidate>
+      <label for="usuario">Nombre de usuario</label>
+      <input type="text" id="usuario" name="usuario" placeholder="Nombre de usuario" required />
+      <label for="email">Correo electrónico</label>
+      <input type="email" id="email" name="email" placeholder="Correo electrónico" required />
+      <label for="password">Contraseña</label>
+      <input type="password" id="password" name="password" placeholder="Contraseña" required />
+      <button type="submit" class="btn-1">REGISTRARSE</button>
+    </form>
+    <div id="mensaje"></div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+    import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBty_E25rWrBwOXxODtjAgFWYM4WjFlmTo",
+      authDomain: "d-pets-2c330.firebaseapp.com",
+      projectId: "d-pets-2c330",
+      storageBucket: "d-pets-2c330.firebasestorage.app",
+      messagingSenderId: "940776474785",
+      appId: "1:940776474785:web:97d99e958ebb386d5c88e0"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const formRegistro = document.getElementById("formRegistro");
+    const mensaje = document.getElementById("mensaje");
+
+    formRegistro.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const usuario = document.getElementById("usuario").value.trim();
+
+      if (!email || !password || !usuario) {
+        mensaje.style.color = "red";
+        mensaje.textContent = "Por favor, completa todos los campos.";
+        return;
+      }
+
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+        // Guardar datos adicionales en Firestore
+        await setDoc(doc(db, "usuarios", userCredential.user.uid), {
+          nombre: usuario,
+          email: email,
+          creadoEn: new Date().toISOString()
+        });
+
+        mensaje.style.color = "green";
+        mensaje.textContent = `Usuario registrado correctamente: ${email}`;
+        formRegistro.reset();
+      } catch (error) {
+        mensaje.style.color = "red";
+        mensaje.textContent = `Error: ${error.message}`;
+      }
+    });
+  </script>
+
+</body>
+</html>

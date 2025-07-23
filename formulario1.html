@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="es">
+<section class="ayuda-section">
+  <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formulario</title>
+  <link rel="stylesheet" href="stylesformulario.css" />
+   <h1>Formulario de aplicación para la Prótesis 3D</h1>
+  <h3>Completa esto para ayudar a determinar el mejor dispositivo para tu perro. ¡POR FAVOR LEE LAS INSTRUCCIONES/GUÍA DEBAJO DE CADA PREGUNTA!</h3>
+  <!--   comu permiso, -->
+</head>
+ 
+<body>
+  <form id="form-aplicacion" class="ayuda-contenido">
+    <div class="ayuda-info">
+      <label for="nombre">¿tu nombre y apellido?:</label>
+      <input type="text" id="nombre" name="nombre" required>
+
+      <label for="email">Correo electrónico</label>
+      <input type="email" id="email" name="email" required>
+    
+      <label for="telefono">Teléfono</label>
+      <input type="tel" id="telefono" name="telefono">
+
+      <label for="fuente">¿La protesis es para la parte delantera o trasera?</label>
+      <div style="margin-top: 10px;">
+   <label>
+    <input type="radio" name="fuente" value="delantera" required>
+    Delantera
+   </label><br>
+   <label>
+    <input type="radio" name="fuente" value="trasera">
+    Trasera
+   </label><br>
+
+     <label for="fuente">¿Cuantos miembros tiene?</label>
+     <div style="margin-top: 10px;">
+
+   <label>
+    <input type="radio" name="fuente" value="4" required>
+    4 (muñon)
+  </label><br>
+  <label>
+    <input type="radio" name="fuente" value="3" required>
+    3
+  </label><br>
+  <label>
+    <input type="radio" name="fuente" value="2">
+    2
+  </label><br>
+  <label>
+    <input type="radio" name="fuente" value="2">
+    1
+  </label><br>
+
+
+
+    <label for="tipoDispositivo">Tipo de protesis requerida *</label>
+<p style="margin-bottom: 10px;">
+  Si tu perro tiene tres patas por una amputación o un defecto de nacimiento, te recomendamos seleccionar una <strong>prótesis</strong>.  
+  Si no tiene extremidades delanteras o presenta deformidades severas, seleccioná un <strong>carrito</strong>.  
+  Si no estás seguro, elegí <strong>"No estoy seguro"</strong> y nuestro equipo se pondrá en contacto con vos para ayudarte.
+</p>
+
+<div style="margin-bottom: 20px;">
+  <label>
+    <input type="radio" name="tipo Dispositivo" value="protesis" required>
+    Prótesis
+  </label><br>
+  <label>
+    <input type="radio" name="tipoDispositivo" value="carrito">
+    Carrito
+  </label><br>
+  <label>
+    <input type="radio" name="tipoDispositivo" value="noSeguro">
+    No estoy seguro
+  </label>
+</div>
+
+<br>
+</div>
+
+    </div>
+
+    <div class="faq">
+      <label for="nombreMascota">Nombre de la mascota</label>
+      <input type="text" id="nombreMascota" name="nombreMascota" required>
+
+      <label for="especie">Especie</label>
+      <select id="especie" name="especie" required>
+        <option value="">Seleccionar</option>
+        <option value="perro">Perro</option>
+        <option value="gato">Gato</option>
+      </select>
+
+
+        <label for="edad">Edad</label>
+        <select id="edad" name="edad" required>
+        <option value="">Seleccionar</option>
+        <option value="menos de 1 año"> Menos de un año</option>
+        <option value="1 año">1 año</option>
+        <option value="2 años">2 años</option>
+        <option value="3 años">3 años</option>
+        <option value="4 años">4 años</option>
+        <option value="5 años ">5 años</option>
+        <option value="6 años ">6 años</option>
+        <option value="7 años "> 7 años</option>
+        <option value="8 años"> 8 años</option>
+        <option value="9 años"> 9 años</option>
+        <option value="10 años ">10 años</option>
+        <option value="11 años "> 11 años</option>
+        <option value="12 años ">12 años</option>
+        <option value="13 años"> 13 años</option>
+        <option value="14 años "> 14 años</option>
+        <option value="15 años "> 15 años</option>
+        <option value="16 años"> 16 años</option>
+      </select>
+
+
+      <label for="tamaño">Tamaño</label>
+      <select id="tamaño" name="tamaño" required>
+        <option value="">Seleccionar</option>
+        <option value="pequeño">Pequeño</option>
+        <option value="mediano">Mediano</option>
+        <option value="grande">Grande</option>
+      </select>
+
+      <label for="miembro">Miembro a reemplazar</label>
+      <select id="miembro" name="miembro" required>
+        <option value="">Seleccionar</option>
+        <option value="delantero-derecho">Delantero Derecho</option>
+        <option value="delantero-izquierdo">Delantero Izquierdo</option>
+      </select>
+
+      <label for="medidas">Medidas (en cm)</label>
+      <textarea id="medidas" name="medidas" placeholder="Largo, alto, ancho..." required></textarea>
+
+      <label for="peso">Peso (en kg)</label>
+      <textarea id="peso" name="peso" placeholder=  required></textarea>
+
+      <label for="imagen">Subí una foto del paciente (JPG o PNG)</label>
+      <input type="file" id="imagen" name="imagen" accept="image/png, image/jpeg" required>
+
+      <label for="descripcion">Observaciones adicionales</label>
+      <textarea id="descripcion" name="descripcion" rows="4"></textarea>
+
+      <button type="submit" class="btn-1">Enviar aplicación</button>
+    </div>
+  </form>
+</section>
+</body>
+
+<style>
+    body {
+ height: 100%;
+ font-family: 'Poppins', sans-serif;
+ color: #323337;
+ font-size: 16px;
+ line-height: 1.6;
+ padding: 40px;
+ background: linear-gradient(to top, #f3e7e1 0%, #ffffff 40%);
+ background-repeat: no-repeat;
+ background-attachment: fixed;
+ background-size: cover;
+}
+
+
+/* CONTENEDOR PRINCIPAL */
+.ayuda-section {
+ max-width: 900px;
+ margin: 0 auto;
+ background: #fffdfc;
+ border-radius: 20px;
+ box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+ padding: 40px;
+}
+
+
+/* TITULOS */
+.ayuda-section h1 {
+ text-align: center;
+ font-size: 36px;
+ color: #b97a63;
+ margin-bottom: 10px;
+}
+
+
+.ayuda-section h3 {
+ text-align: center;
+ font-size: 16px;
+ color: #ce967b;
+ margin-bottom: 30px;
+ font-weight: 400;
+}
+
+
+/* FORMULARIO */
+.ayuda-contenido {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 30px;
+}
+
+
+.ayuda-info,
+.faq {
+ flex: 1 1 100%;
+}
+
+
+/* CAMPOS */
+form label {
+ display: block;
+ margin: 15px 0 5px;
+ font-weight: 600;
+ color: #323337;
+}
+
+
+form input[type="text"],
+form input[type="email"],
+form input[type="tel"],
+form input[type="file"],
+form textarea,
+form select {
+ width: 100%;
+ padding: 12px 16px;
+ margin-top: 8px;
+ border: 1.5px solid #d9cfc8;
+ border-radius: 10px;
+ font-size: 15px;
+ background-color: #fffdfc;
+ transition: 0.3s ease;
+ box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+
+form input:focus,
+form textarea:focus,
+form select:focus {
+ outline: none;
+ border-color: #ce967b;
+ background-color: #fef7f5;
+}
+
+
+form textarea {
+ resize: vertical;
+ min-height: 80px;
+}
+
+
+/* FILE INPUT */
+form input[type="file"] {
+ border: 2px dashed #d6c0b3;
+ background-color: #fff9f5;
+ cursor: pointer;
+}
+
+
+form input[type="file"]:hover {
+ background-color: #f8eee8;
+ border-color: #ce967b;
+}
+
+
+/* RADIO BUTTONS */
+form input[type="radio"] {
+ margin-right: 8px;
+ accent-color: #ce967b;
+ transform: scale(1.2);
+ vertical-align: middle;
+}
+
+
+form label input[type="radio"] {
+ margin-right: 5px;
+}
+
+
+/* PÁRRAFOS EN FORMULARIO */
+form p {
+ font-size: 14px;
+ color: #555;
+ margin-bottom: 10px;
+}
+
+
+/* BOTÓN */
+.btn-1 {
+ display: block;
+ width: 100%;
+ margin-top: 30px;
+ padding: 14px;
+ background: linear-gradient(135deg, #ce967b, #b97a63);
+ color: white;
+ border: none;
+ border-radius: 10px;
+ font-weight: bold;
+ font-size: 18px;
+ text-align: center;
+ cursor: pointer;
+ box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+ transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+
+.btn-1:hover {
+ background: linear-gradient(135deg, #b97a63, #a9654f);
+ transform: scale(1.03);
+}
+
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+ .ayuda-contenido {
+   flex-direction: column;
+ }
+
+
+ .btn-1 {
+   font-size: 16px;
+   padding: 12px;
+ }
+}
+
+
+@media (max-width: 480px) {
+ .ayuda-section h1 {
+   font-size: 28px;
+ }
+
+
+ .ayuda-section h3 {
+   font-size: 16px;
+ }
+
+
+ .btn-1 {
+   width: 100%;
+   text-align: center;
+ }
+}
+  </style>
+</html>
+<script>
+  document.getElementById('form-aplicacion')?.addEventListener('submit', function (e) {
+    e.preventDefault();
+    alert("Gracias por enviar tu solicitud. ¡Nos pondremos en contacto pronto!");
+    this.reset();
+  })
+</script>
+
